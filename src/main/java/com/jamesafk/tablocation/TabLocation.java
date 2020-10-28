@@ -1,6 +1,7 @@
 package com.jamesafk.tablocation;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static Logger log = Bukkit.getLogger();
     public static String ver;
     public static String javaver = System.getProperty("java.version");
+    private static FileConfiguration config;
 
     @Override
     public void onEnable() {
@@ -22,6 +24,12 @@ public final class TabLocation extends JavaPlugin implements Listener {
         ver = this.getDescription().getVersion();
 
         Bukkit.getPluginManager().registerEvents(this, this);
+
+        saveConfig();
+        saveDefaultConfig();
+        config = getConfig();
+        config.options().copyDefaults(true);
+        config.addDefault("Add dimension to location", true);
 
         log.info("===================================");
         log.info("Plugin has been enabled!");
@@ -48,18 +56,20 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         String world = String.valueOf(player.getWorld().getEnvironment());
-        if (world.equalsIgnoreCase("THE_END")) {
-            world = ", §5The End§f";
-        } else if (world.equalsIgnoreCase("NETHER")) {
-            world = ", §5The Nether§f";
-        } else {
-            world = "";
+        if (!config.getBoolean("Add dimension to location")) {
+            if (world.equalsIgnoreCase("THE_END")) {
+                world = ", §5The End§f";
+            } else if (world.equalsIgnoreCase("NETHER")) {
+                world = ", §5The Nether§f";
+            } else {
+                world = "";
+            }
         }
 
-        String location = " (" + player.getLocation().getBlockX()
+        String location = " [" + player.getLocation().getBlockX()
                 + ", " + player.getLocation().getBlockY()
                 + ", " + player.getLocation().getBlockZ()
-                + world + ")";
+                + world + "]";
 
         player.setPlayerListName(player.getDisplayName() + location);
     }
