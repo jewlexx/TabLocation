@@ -30,6 +30,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
         config = getConfig();
         config.options().copyDefaults(true);
         config.addDefault("Add dimension to location", true);
+        saveDefaultConfig();
+        saveConfig();
 
         log.info("===================================");
         log.info("Plugin has been enabled!");
