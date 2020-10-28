@@ -13,6 +13,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
     public static Logger log = Bukkit.getLogger();
     public static String ver;
+    public static String javaver = System.getProperty("java.version");
 
     @Override
     public void onEnable() {
@@ -26,6 +27,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
         log.info("Plugin has been enabled!");
         log.info("You are using §aTabLocation,");
         log.info("Version §6" + ver);
+        log.info("Java version §6" + javaver);
         log.info("Developed by §aJamesAfk");
         log.info("===================================");
 
