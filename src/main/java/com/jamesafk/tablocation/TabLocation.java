@@ -9,6 +9,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public final class TabLocation extends JavaPlugin implements Listener {
@@ -68,16 +71,13 @@ public final class TabLocation extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         if (!player.hasPermission(hide)) {
             String world = String.valueOf(player.getWorld().getEnvironment());
-            if (world.equalsIgnoreCase("THE_END")) {
-                world = ", §5The End§f";
-            } else if (world.equalsIgnoreCase("NETHER")) {
-                world = ", §5The Nether§f";
-            } else {
-                world = "";
-            }
 
-            if (!enviroment) {
-                world = "";
+            world = world.toLowerCase().replaceAll("_", " ");
+            String[] worlds = world.split(" ");
+            int i = 0;
+            while (i < worlds.length) {
+                world = worlds[i].substring(0, 1).toUpperCase() + worlds[i].substring(1);
+                i = i + 1;
             }
 
             String location = " (" + player.getLocation().getBlockX()
