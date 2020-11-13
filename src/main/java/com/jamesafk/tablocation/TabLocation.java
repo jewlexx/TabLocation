@@ -18,6 +18,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static Permission hide = new Permission("tablocation.hide");
     public static String javaver = System.getProperty("java.version");
     private static FileConfiguration config;
+    public static boolean enviroment = true;
 
     @Override
     public void onEnable() {
@@ -38,6 +39,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
         config.addDefault("Add dimension to location", true);
         saveDefaultConfig();
         saveConfig();
+
+        enviroment = config.getBoolean("Add dimension to location");
 
         log.info("===================================");
         log.info("Plugin has been enabled!");
@@ -70,6 +73,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
             } else if (world.equalsIgnoreCase("NETHER")) {
                 world = ", §5The Nether§f";
             } else {
+                world = "";
+            }
+
+            if (!enviroment) {
                 world = "";
             }
 
