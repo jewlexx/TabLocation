@@ -9,9 +9,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 public final class TabLocation extends JavaPlugin implements Listener {
@@ -78,6 +75,11 @@ public final class TabLocation extends JavaPlugin implements Listener {
             while (i < worlds.length) {
                 world = worlds[i].substring(0, 1).toUpperCase() + worlds[i].substring(1);
                 i = i + 1;
+            }
+            world = ", " + world;
+
+            if (!enviroment) {
+                world = "";
             }
 
             String location = " (" + player.getLocation().getBlockX()
