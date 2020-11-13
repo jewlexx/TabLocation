@@ -75,7 +75,11 @@ public final class TabLocation extends JavaPlugin implements Listener {
                 world = worlds[i].substring(0, 1).toUpperCase() + worlds[i].substring(1);
                 i = i + 1;
             }
-            world = ", " + world;
+
+            if (world.equalsIgnoreCase("normal")) {
+                world = "Overworld";
+            }
+            world = ", The " + world;
 
             if (!enviroment) {
                 world = "";
