@@ -69,8 +69,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
         if (!player.hasPermission(hide)) {
             String world = String.valueOf(player.getWorld().getEnvironment());
 
-            world = world.toLowerCase().replaceAll("_", " ");
-            String[] worlds = world.split(" ");
+            String[] worlds = world.toLowerCase().split("_");
             int i = 0;
             while (i < worlds.length) {
                 world = worlds[i].substring(0, 1).toUpperCase() + worlds[i].substring(1);
