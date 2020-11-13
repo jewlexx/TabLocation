@@ -5,16 +5,16 @@
 
 # Changelogs
 ## Latest:
-[New] Added permission to disable showing location
+*[Fixed] Fixed old version support
 
-[New] Added automation for dimension name
-
-[New] Added option to change dimension colour
-
-[New] Added overworld support for dimension
+## 1.3
+*[New] Added permission to disable showing location
+*[New] Added automation for dimension name
+*[New] Added option to change dimension colour
+*[New] Added overworld support for dimension
 
 ## 1.2
-[Updated] New start message
+*[Updated] New start message
 
 ## 1.1
-[New] Added the players dimension to their tab name
+*[New] Added the players dimension to their tab name
