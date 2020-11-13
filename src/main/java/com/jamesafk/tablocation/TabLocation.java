@@ -1,6 +1,7 @@
 package com.jamesafk.tablocation;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,6 +16,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static Logger log = Bukkit.getLogger();
     public static String ver;
     public static Permission hide = new Permission("tablocation.hide");
+    public static String javaver = System.getProperty("java.version");
+    private static FileConfiguration config;
 
     @Override
     public void onEnable() {
@@ -28,10 +31,19 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
+        saveConfig();
+        saveDefaultConfig();
+        config = getConfig();
+        config.options().copyDefaults(true);
+        config.addDefault("Add dimension to location", true);
+        saveDefaultConfig();
+        saveConfig();
+
         log.info("===================================");
         log.info("Plugin has been enabled!");
         log.info("You are using §aTabLocation,");
         log.info("Version §6" + ver);
+        log.info("Java version §6" + javaver);
         log.info("Developed by §aJamesAfk");
         log.info("===================================");
 
