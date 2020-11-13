@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
     public static Logger log = Bukkit.getLogger();
     public static String ver;
+    public static Permission hide = new Permission("tablocation.hide");
     public static String javaver = System.getProperty("java.version");
     private static FileConfiguration config;
 
@@ -22,6 +24,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
         // Plugin startup logic
 
         ver = this.getDescription().getVersion();
+
+        if (Bukkit.getPluginManager().getPermission("tablocation.hide") == null) {
+            Bukkit.getPluginManager().addPermission(hide);
+        }
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
@@ -57,8 +63,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        String world = String.valueOf(player.getWorld().getEnvironment());
-        if (!config.getBoolean("Add dimension to location")) {
+        if (!player.hasPermission(hide)) {
+            String world = String.valueOf(player.getWorld().getEnvironment());
             if (world.equalsIgnoreCase("THE_END")) {
                 world = ", §5The End§f";
             } else if (world.equalsIgnoreCase("NETHER")) {
@@ -66,13 +72,17 @@ public final class TabLocation extends JavaPlugin implements Listener {
             } else {
                 world = "";
             }
+
+            String location = " (" + player.getLocation().getBlockX()
+                    + ", " + player.getLocation().getBlockY()
+                    + ", " + player.getLocation().getBlockZ()
+                    + world + ")";
+
+            player.setPlayerListName(player.getDisplayName() + location);
+        } else {
+            if (!player.getPlayerListName().equals(player.getName())) {
+                player.setPlayerListName(player.getName());
+            }
         }
-
-        String location = " [" + player.getLocation().getBlockX()
-                + ", " + player.getLocation().getBlockY()
-                + ", " + player.getLocation().getBlockZ()
-                + world + "]";
-
-        player.setPlayerListName(player.getDisplayName() + location);
     }
 }
