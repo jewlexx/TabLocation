@@ -17,8 +17,9 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static String ver;
     public static Permission hide = new Permission("tablocation.hide");
     public static String javaver = System.getProperty("java.version");
-    private static FileConfiguration config;
+    public static FileConfiguration config;
     public static boolean enviroment = true;
+    public static String colourcode;
 
     @Override
     public void onEnable() {
@@ -41,6 +42,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
         config.addDefault("Colour for dimension", "§5");
         saveDefaultConfig();
         saveConfig();
+
+        colourcode = config.getString("Colour for dimension");
 
         enviroment = config.getBoolean("Add dimension to location");
 
@@ -81,7 +84,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
             if (world.equalsIgnoreCase("normal")) {
                 world = "Overworld";
             }
-            world = ", §5The " + world + "§f";
+            world = ", " + colourcode + "The " + world + "§f";
 
             if (!enviroment) {
                 world = "";
