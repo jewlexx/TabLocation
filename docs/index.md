@@ -6,8 +6,11 @@
 # Changelogs
 ## Latest:
 [New] Added permission to disable showing location
+
 [New] Added automation for dimension name
+
 [New] Added option to change dimension colour
+
 [New] Added overworld support for dimension
 
 ## 1.2
