@@ -17,7 +17,9 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static String ver;
     public static Permission hide = new Permission("tablocation.hide");
     public static String javaver = System.getProperty("java.version");
-    private static FileConfiguration config;
+    public static FileConfiguration config;
+    public static boolean enviroment = true;
+    public static String colourcode;
 
     @Override
     public void onEnable() {
@@ -31,13 +33,19 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
+        saveDefaultConfig();
         saveConfig();
         saveDefaultConfig();
         config = getConfig();
         config.options().copyDefaults(true);
         config.addDefault("Add dimension to location", true);
+        config.addDefault("Colour for dimension", "§5");
         saveDefaultConfig();
         saveConfig();
+
+        colourcode = config.getString("Colour for dimension");
+
+        enviroment = config.getBoolean("Add dimension to location");
 
         log.info("===================================");
         log.info("Plugin has been enabled!");
@@ -65,11 +73,20 @@ public final class TabLocation extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         if (!player.hasPermission(hide)) {
             String world = String.valueOf(player.getWorld().getEnvironment());
-            if (world.equalsIgnoreCase("THE_END")) {
-                world = ", §5The End§f";
-            } else if (world.equalsIgnoreCase("NETHER")) {
-                world = ", §5The Nether§f";
-            } else {
+
+            String[] worlds = world.toLowerCase().split("_");
+            int i = 0;
+            while (i < worlds.length) {
+                world = worlds[i].substring(0, 1).toUpperCase() + worlds[i].substring(1);
+                i = i + 1;
+            }
+
+            if (world.equalsIgnoreCase("normal")) {
+                world = "Overworld";
+            }
+            world = ", " + colourcode + "The " + world + "§f";
+
+            if (!enviroment) {
                 world = "";
             }
 
