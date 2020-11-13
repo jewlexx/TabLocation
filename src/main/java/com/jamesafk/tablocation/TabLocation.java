@@ -27,9 +27,11 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         ver = this.getDescription().getVersion();
 
+        /*
         if (Bukkit.getPluginManager().getPermission("tablocation.hide") == null) {
             Bukkit.getPluginManager().addPermission(hide);
         }
+         */
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
