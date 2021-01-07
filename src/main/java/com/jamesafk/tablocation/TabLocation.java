@@ -1,5 +1,6 @@
 package com.jamesafk.tablocation;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -22,6 +23,11 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        // All you have to do is adding the following two lines in your onEnable method.
+        // You can find the plugin ids of your plugins on the page https://bstats.org/what-is-my-plugin-id
+        int pluginId = 9922; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
+
         // Plugin startup logic
 
         ver = this.getDescription().getVersion();
