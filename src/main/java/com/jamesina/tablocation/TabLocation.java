@@ -1,6 +1,7 @@
 package com.jamesina.tablocation;
 
-import org.bstats.bukkit.Metrics;
+import com.jamesina.tablocation.Other.UpdateChecker;
+import com.jamesina.tablocation.Other.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -21,12 +22,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static boolean enviroment = true;
     public static String colourcode;
 
-    private int resourceId;
-
     @Override
     public void onEnable() {
         int pluginId = 9922; // <-- Replace with the id of your plugin!
-        Metrics metrics = new Metrics(this, pluginId);
+        new Metrics(this, pluginId);
 
         // Plugin startup logic
 

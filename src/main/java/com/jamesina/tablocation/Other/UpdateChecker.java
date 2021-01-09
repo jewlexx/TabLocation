@@ -1,7 +1,6 @@
-package com.jamesina.tablocation;
+package com.jamesina.tablocation.Other;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Consumer;
 
