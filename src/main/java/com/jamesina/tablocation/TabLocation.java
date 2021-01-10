@@ -20,6 +20,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static String javaver = System.getProperty("java.version");
     public static FileConfiguration config;
     public static boolean enviroment = true;
+    public static boolean locationBool = true;
     public static String colourcode;
 
     @Override
@@ -33,19 +34,21 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
-        saveDefaultConfig();
         saveConfig();
         saveDefaultConfig();
         config = getConfig();
         config.options().copyDefaults(true);
-        config.addDefault("Add dimension to location", true);
+        config.addDefault("Show dimension", true);
+        config.addDefault("Show location", true);
         config.addDefault("Colour for dimension", "§5");
         saveDefaultConfig();
         saveConfig();
 
         colourcode = config.getString("Colour for dimension");
 
-        enviroment = config.getBoolean("Add dimension to location");
+        enviroment = config.getBoolean("Show dimension");
+        locationBool = config.getBoolean("Show location");
+
 
         log.info("===================================");
         log.info("Plugin has been enabled!");
@@ -94,16 +97,19 @@ public final class TabLocation extends JavaPlugin implements Listener {
             }
             world = ", " + colourcode + "The " + world + "§f";
 
+            String location = player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
+
             if (!enviroment) {
                 world = "";
             }
 
-            String location = " (" + player.getLocation().getBlockX()
-                    + ", " + player.getLocation().getBlockY()
-                    + ", " + player.getLocation().getBlockZ()
-                    + world + ")";
+            if (!locationBool) {
+                location = "";
+            }
 
-            player.setPlayerListName(player.getDisplayName() + location);
+            String tabLoc = " (" + location + world + ")";
+
+            player.setPlayerListName(player.getDisplayName() + tabLoc);
         } else {
             if (!player.getPlayerListName().equals(player.getName())) {
                 player.setPlayerListName(player.getName());
