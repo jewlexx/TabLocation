@@ -1,7 +1,7 @@
 package com.jamesina.tablocation;
 
-import com.jamesina.tablocation.Other.UpdateChecker;
 import com.jamesina.tablocation.Other.Metrics;
+import com.jamesina.tablocation.Other.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
