@@ -86,6 +86,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
+        player.setPlayerListName(player.getDisplayName() + getLoc(player));
+    }
+
+    public static String getLoc(Player player) {
         if (!player.hasPermission(hide)) {
             String world = "";
 
@@ -101,7 +105,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
             }
             world = colourcode + "The " + world + "§f";
 
-            String location = getLoc(player);
+            String location = player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
 
             if (!enviroment) {
                 world = "";
@@ -117,21 +121,18 @@ public final class TabLocation extends JavaPlugin implements Listener {
                 separator = "";
             }
 
-            String tabLoc = " (" + location + separator + world + ")";
+            String tabLoc = " [" + location + separator + world + "]";
 
             if (!locationBool && !enviroment) {
                 tabLoc = "";
             }
 
-            player.setPlayerListName(player.getDisplayName() + tabLoc);
+            return tabLoc;
         } else {
             if (!player.getPlayerListName().equals(player.getName())) {
-                player.setPlayerListName(player.getName());
+                return "";
             }
         }
-    }
-
-    public static String getLoc(Player player) {
-        return player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
+    return "";
     }
 }
