@@ -1,9 +1,7 @@
 package com.jamesina.tablocation.Other;
 
 import com.jamesina.tablocation.TabLocation;
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -110,18 +108,11 @@ public class Placeholders extends PlaceholderExpansion {
 
         // %someplugin_placeholder1%
         if(identifier.equals("location")){
-            return plugin.getConfig().getString("location", getPlaceholderLoc());
+            return plugin.getConfig().getString("location", TabLocation.getLoc(player));
         }
 
         // We return null if an invalid placeholder (f.e. %someplugin_placeholder3%)
         // was provided
         return null;
-    }
-
-    public static String getPlaceholderLoc() {
-
-        Bukkit.getPlayer(PlaceholderAPI.set);
-
-        return TabLocation(player);
     }
 }
