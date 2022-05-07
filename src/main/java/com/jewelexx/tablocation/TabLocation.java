@@ -120,7 +120,6 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
             world = s.substring(0, 1).toUpperCase() + s.substring(1);
 
-            log.info("Colour for The " + world);
             String colourcode = config.getString("Colour for The " + world);
 
             world = String.format("%sThe %s§f", colourcode, world);
