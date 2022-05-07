@@ -4,16 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jamesina</groupId>
+    <groupId>com.jewelexx</groupId>
     <artifactId>TabLocation</artifactId>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
     <packaging>jar</packaging>
 
     <name>TabLocation</name>
 
-    <description>Adds the players location to their tab name, so you can see where they are by pressing tab at any
-        time
-    </description>
+    <description>Adds the players location to their tab name, so you can see where they are by pressing tab at any time</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

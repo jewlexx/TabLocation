@@ -50,7 +50,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
         enviroment = config.getBoolean("Show dimension");
         locationBool = config.getBoolean("Show location");
 
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new Placeholders(this).register();
         }
 
@@ -105,7 +105,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
             }
             world = colourcode + "The " + world + "§f";
 
-            String location = player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
+            String location = player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", "
+                    + player.getLocation().getBlockZ();
 
             if (!enviroment) {
                 world = "";
@@ -133,6 +134,6 @@ public final class TabLocation extends JavaPlugin implements Listener {
                 return "";
             }
         }
-    return "";
+        return "";
     }
 }
