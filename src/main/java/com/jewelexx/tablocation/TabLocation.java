@@ -58,7 +58,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         log.info("===================================");
         log.info("Plugin has been enabled!");
-        log.info("You are using " + ChatColor.GREEN + "TabLocation,");
+        log.info("You are using " + ChatColor.GREEN + "TabLocation");
         log.info("Version " + ChatColor.GOLD + ver);
         log.info("Java version " + ChatColor.GOLD + javaver);
         log.info("Developed with 💗 by Juliette Cordor");
