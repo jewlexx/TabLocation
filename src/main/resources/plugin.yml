@@ -1,11 +1,12 @@
 name: TabLocation
-version: 1.4.1
-main: com.jamesina.tablocation.TabLocation
+version: 1.5
+main: com.jewlexx.tablocation.TabLocation
 api-version: 1.13
-authors: [ jamesina ]
+authors: [jewlexx]
 description: Adds the players location to their tab name, so you can see where they are by pressing tab at any time
 softdepend:
   - PlaceholderAPI
+  - TAB
 permissions:
   tablocation.hide:
     description: Hides your location from your name
