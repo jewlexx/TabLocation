@@ -1,4 +1,4 @@
-package com.jewelexx.tablocation.Other;
+package com.jewelexx.tablocation.Utils;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
