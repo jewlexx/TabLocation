@@ -1,8 +1,6 @@
-package com.jewelexx.tablocation.Utils;
+package com.jewelexx.tablocation;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-
-import com.jewelexx.tablocation.TabLocation;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

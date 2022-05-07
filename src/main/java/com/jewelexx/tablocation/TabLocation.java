@@ -7,14 +7,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
-
-import com.jewelexx.tablocation.Utils.Placeholders;
-import com.jewelexx.tablocation.Utils.UpdateChecker;
 
 public final class TabLocation extends JavaPlugin implements Listener {
     static String javaver = System.getProperty("java.version");
@@ -82,16 +80,24 @@ public final class TabLocation extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e) {
+    static void onPlayerMove(PlayerMoveEvent e) {
         Block from = e.getFrom().getBlock();
         Block to = e.getTo().getBlock();
         if (from.getX() != to.getX() || from.getY() != to.getY() || from.getZ() != to.getZ()) {
-            Player player = e.getPlayer();
-            player.setPlayerListName(player.getDisplayName() + getLoc(player));
+            updateLocation(e.getPlayer());
         }
     }
 
-    public static String getLoc(Player player) {
+    @EventHandler
+    static void onPlayerJoin(PlayerJoinEvent e) {
+        updateLocation(e.getPlayer());
+    }
+
+    static void updateLocation(Player player) {
+        player.setPlayerListName(player.getDisplayName() + getLoc(player));
+    }
+
+    protected static String getLoc(Player player) {
         if ((!locationBool && !environment) || player.hasPermission("tablocation.hide")) {
             return "";
         }

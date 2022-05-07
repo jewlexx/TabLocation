@@ -1,4 +1,4 @@
-package com.jewelexx.tablocation.Utils;
+package com.jewelexx.tablocation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
