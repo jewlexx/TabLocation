@@ -131,7 +131,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         String separator = "";
 
-        if (locationBool || environment) {
+        if (locationBool && environment) {
             separator = ", ";
         }
 
