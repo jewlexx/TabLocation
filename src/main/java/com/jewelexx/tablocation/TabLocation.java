@@ -102,6 +102,15 @@ public final class TabLocation extends JavaPlugin implements Listener {
         String world = "";
 
         if (environment) {
+            /**
+             * The environment is formatted as follows:
+             * - Overworld
+             * - Nether
+             * - The_End
+             * 
+             * And in order to convert it into a string and remove the underscore in
+             * "The_End" we have this mess.
+             */
             String s = player.getWorld().getEnvironment().toString().toLowerCase().replace('_', ' ');
 
             if (s.equals("normal")) {
