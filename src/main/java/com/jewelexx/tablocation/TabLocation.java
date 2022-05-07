@@ -3,7 +3,6 @@ package com.jewelexx.tablocation;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.World.Environment;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -111,14 +110,15 @@ public final class TabLocation extends JavaPlugin implements Listener {
              * And in order to convert it into a string and remove the underscore in
              * "The_End" we have this mess.
              */
-            String s = player.getWorld().getEnvironment().toString().toLowerCase().replace('_', ' ');
+            String s = player.getWorld().getEnvironment().name().toLowerCase().split("_")[0];
 
             if (s.equals("normal")) {
                 s = "Overworld";
             }
+
             world = s.substring(0, 1).toUpperCase() + s.substring(1);
 
-            world = String.format("%s%s§f", colourcode, world);
+            world = String.format("%sThe %s§f", colourcode, world);
         }
 
         String location = "";
@@ -131,10 +131,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
             location = String.format("%s, %s, %s", x, y, z);
         }
 
-        String separator = ", ";
+        String separator = "";
 
         if (locationBool || environment) {
-            separator = "";
+            separator = ", ";
         }
 
         String tabLoc = " [" + location + separator + world + "]";
