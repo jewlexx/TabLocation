@@ -1,6 +1,10 @@
 # TabLocation
 
-Adds the players location to their tab name, so you can see where they are by pressing tab at any time
+Adds the players location to their tab name, so you can see where they are by pressing tab at any time.
+
+![Demo Image](images/screenshot.png)
+
+TabLocation supports some playerlist plugins such as TAB. Setup for this can be found here
 
 ## Building
 
