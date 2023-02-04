@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Use GitHub for update checking, rather than Spigot
 - Use CraftColours library instead of strings
 - Improve environment parsing
 - Update API version
