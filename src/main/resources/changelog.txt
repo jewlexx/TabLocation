@@ -2,6 +2,8 @@
 [Fix] Update checker always saying new update
 [Fix] Colour not being white on the first part of the location string
 [Chore] Update API version
+[Chore] Update Maven shade plugin to v3.4.1
+[Chore] Update PlaceholderAPI to v2.11.2
 
 1.5.0 Full Changelog:
 [New] Added options for colours for each individual dimension
