@@ -19,8 +19,8 @@ import com.jewelexx.craftcolours.CraftColours;
 
 public final class TabLocation extends JavaPlugin implements Listener {
     static final Logger log = Bukkit.getLogger();
-    static boolean environment;
-    static boolean locationBool;
+    static boolean environmentEnabled;
+    static boolean locationEnabled;
     static FileConfiguration config;
     final String version = getDescription().getVersion();
 
@@ -34,8 +34,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         config = getConfig();
 
-        environment = config.getBoolean("Show dimension");
-        locationBool = config.getBoolean("Show location");
+        environmentEnabled = config.getBoolean("Show dimension");
+        locationEnabled = config.getBoolean("Show location");
 
         manager.registerEvents(this, this);
 
@@ -83,13 +83,13 @@ public final class TabLocation extends JavaPlugin implements Listener {
     }
 
     protected static String getLoc(Player player) {
-        if ((!locationBool && !environment) || player.hasPermission("tablocation.hide")) {
+        if ((!locationEnabled && !environmentEnabled) || player.hasPermission("tablocation.hide")) {
             return "";
         }
 
         String world = "";
 
-        if (environment) {
+        if (environmentEnabled) {
             Environment environment = player.getWorld().getEnvironment();
 
             switch (environment) {
@@ -114,7 +114,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         String location = "";
 
-        if (locationBool) {
+        if (locationEnabled) {
             Location loc = player.getLocation();
             int x = loc.getBlockX();
             int y = loc.getBlockY();
@@ -124,7 +124,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         String separator = "";
 
-        if (locationBool && environment) {
+        if (locationEnabled && environmentEnabled) {
             separator = ", ";
         }
 
