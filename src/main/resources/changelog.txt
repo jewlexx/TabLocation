@@ -1,4 +1,5 @@
 1.5.1 Full Changelog:
+[Chore] Improve environment parsing
 [Fix] Update checker always saying new update
 [Fix] Colour not being white on the first part of the location string
 [Chore] Update API version
