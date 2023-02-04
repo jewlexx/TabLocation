@@ -1,7 +1,10 @@
 package com.jewelexx.tablocation;
 
+import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -11,38 +14,30 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
-import java.util.logging.Logger;
+import com.jewelexx.craftcolours.CraftColours;
 
 public final class TabLocation extends JavaPlugin implements Listener {
-    static String javaver = System.getProperty("java.version");
-    static Logger log = Bukkit.getLogger();
-    static PluginManager manager = Bukkit.getPluginManager();
-    static String ver;
-    static boolean environment;
-    static boolean locationBool;
+    static final Logger log = Bukkit.getLogger();
+    static boolean environmentEnabled;
+    static boolean locationEnabled;
     static FileConfiguration config;
+    final String version = getDescription().getVersion();
 
     @Override
     public void onEnable() {
         new org.bstats.bukkit.Metrics(this, 9922);
 
-        // Plugin startup logic
+        PluginManager manager = Bukkit.getPluginManager();
 
-        ver = getDescription().getVersion();
+        saveDefaultConfig();
 
         config = getConfig();
 
-        config.options().copyDefaults(true);
-        config.addDefault("Show dimension", true);
-        config.addDefault("Show location", true);
-        config.addDefault("Colour for The Overworld", "§a");
-        config.addDefault("Colour for The Nether", "§4");
-        config.addDefault("Colour for The End", "§5");
-        saveConfig();
-
-        environment = config.getBoolean("Show dimension");
-        locationBool = config.getBoolean("Show location");
+        environmentEnabled = config.getBoolean("Show dimension");
+        locationEnabled = config.getBoolean("Show location");
 
         manager.registerEvents(this, this);
 
@@ -52,28 +47,23 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         log.info("===================================");
         log.info("TabLocation has been enabled!");
-        log.info("Version " + ver);
-        log.info("Java version " + javaver);
+        log.info("Version " + version);
         log.info("Developed with 💗 by Juliette Cordor");
         log.info("===================================");
 
-        new UpdateChecker(this, 83894).getVersion(version -> {
-            if (getDescription().getVersion() != version) {
+        new UpdateChecker(this).getVersion(version -> {
+            if (!getDescription().getVersion().equals(version)) {
                 log.warning("[TabLocation] There is a new update available.");
             }
         });
-
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
-
         log.info("===================================");
         log.info("Plugin has been disabled!");
         log.info("Thank you for using TabLocation!");
         log.info("===================================");
-
     }
 
     @EventHandler
@@ -90,59 +80,69 @@ public final class TabLocation extends JavaPlugin implements Listener {
         updateLocation(e.getPlayer());
     }
 
+    static String withTeamName(Player player) {
+        String name = player.getDisplayName();
+        Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+
+        for (Team team : sb.getTeams()) {
+            if (team.hasEntry(player.getName())) {
+                return team.getColor() + team.getPrefix() + name + team.getSuffix() + CraftColours.RESET;
+            }
+        }
+
+        return name;
+    }
+
     static void updateLocation(Player player) {
-        player.setPlayerListName(player.getDisplayName() + getLoc(player));
+        player.setPlayerListName(withTeamName(player) + getLoc(player));
     }
 
     protected static String getLoc(Player player) {
-        if ((!locationBool && !environment) || player.hasPermission("tablocation.hide")) {
+        if ((!locationEnabled && !environmentEnabled) || player.hasPermission("tablocation.hide")) {
             return "";
         }
 
         String world = "";
 
-        if (environment) {
-            /**
-             * The environment is formatted as follows:
-             * - Overworld
-             * - Nether
-             * - The_End
-             * 
-             * And in order to convert it into a string and remove the underscore in
-             * "The_End" we have this mess.
-             */
-            String[] split = player.getWorld().getEnvironment().name().toLowerCase().split("_");
-            String s = split[split.length - 1];
+        if (environmentEnabled) {
+            Environment environment = player.getWorld().getEnvironment();
 
-            if (s.equals("normal")) {
-                s = "Overworld";
+            switch (environment) {
+                case NORMAL:
+                    world = "Overworld";
+                    break;
+                case NETHER:
+                    world = "Nether";
+                    break;
+                case THE_END:
+                    world = "End";
+                    break;
+                default:
+                    world = environment.toString();
+                    break;
             }
-
-            world = s.substring(0, 1).toUpperCase() + s.substring(1);
 
             String colourcode = config.getString("Colour for The " + world);
 
-            world = String.format("%sThe %s§f", colourcode, world);
+            world = colourcode + "The " + world;
         }
 
         String location = "";
 
-        if (locationBool) {
+        if (locationEnabled) {
             Location loc = player.getLocation();
             int x = loc.getBlockX();
             int y = loc.getBlockY();
             int z = loc.getBlockZ();
-            location = String.format("%s, %s, %s", x, y, z);
+            location = x + ", " + y + ", " + z;
         }
 
         String separator = "";
 
-        if (locationBool && environment) {
+        if (locationEnabled && environmentEnabled) {
             separator = ", ";
         }
 
-        String tabLoc = " [" + location + separator + world + "]";
-
-        return tabLoc;
+        return " " + CraftColours.WHITE + "[" + location + separator + world + "]";
     }
 }
