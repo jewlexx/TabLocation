@@ -1,7 +1,7 @@
 name: TabLocation
 version: 1.5.0
 main: com.jewelexx.tablocation.TabLocation
-api-version: 1.8
+api-version: 1.13
 authors: [jewelexx]
 description: Adds the players location to their tab name, so you can see where they are by pressing tab at any time
 softdepend:
