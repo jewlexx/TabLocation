@@ -15,31 +15,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public final class TabLocation extends JavaPlugin implements Listener {
-    static String javaver = System.getProperty("java.version");
-    static Logger log = Bukkit.getLogger();
-    static PluginManager manager = Bukkit.getPluginManager();
-    static String ver;
+    static final Logger log = Bukkit.getLogger();
     static boolean environment;
     static boolean locationBool;
     static FileConfiguration config;
+    final String version = getDescription().getVersion();
 
     @Override
     public void onEnable() {
         new org.bstats.bukkit.Metrics(this, 9922);
 
+        PluginManager manager = Bukkit.getPluginManager();
+
         // Plugin startup logic
 
-        ver = getDescription().getVersion();
+        saveDefaultConfig();
 
         config = getConfig();
-
-        config.options().copyDefaults(true);
-        config.addDefault("Show dimension", true);
-        config.addDefault("Show location", true);
-        config.addDefault("Colour for The Overworld", "§a");
-        config.addDefault("Colour for The Nether", "§4");
-        config.addDefault("Colour for The End", "§5");
-        saveConfig();
 
         environment = config.getBoolean("Show dimension");
         locationBool = config.getBoolean("Show location");
@@ -52,8 +44,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         log.info("===================================");
         log.info("TabLocation has been enabled!");
-        log.info("Version " + ver);
-        log.info("Java version " + javaver);
+        log.info("Version " + version);
         log.info("Developed with 💗 by Juliette Cordor");
         log.info("===================================");
 
@@ -91,7 +82,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     }
 
     static void updateLocation(Player player) {
-        player.setPlayerListName(player.getDisplayName() + getLoc(player));
+        player.setPlayerListName(player.getPlayerListName() + getLoc(player));
     }
 
     protected static String getLoc(Player player) {
@@ -107,7 +98,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
              * - Overworld
              * - Nether
              * - The_End
-             * 
+             *
              * And in order to convert it into a string and remove the underscore in
              * "The_End" we have this mess.
              */
