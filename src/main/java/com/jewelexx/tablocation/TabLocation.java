@@ -124,7 +124,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
             String colourcode = config.getString("Colour for The " + world);
 
-            world = colourcode + "The " + world;
+            world = colourcode + "The " + world + CraftColours.RESET;
         }
 
         String location = "";
