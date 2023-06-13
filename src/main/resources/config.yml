@@ -3,7 +3,7 @@ Show dimension: true
 # Show the exact coordinates of the player
 Show location: true
 # Colour the brackets around the coordinates depending on the player's dimension
-Color brackets: false
+Colour brackets: false
 
 # The following are Minecraft colour codes from https://www.digminecraft.com/lists/color_list_pc.php
 Colour for The Overworld: §a
