@@ -23,6 +23,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     static final Logger log = Bukkit.getLogger();
     static boolean environmentEnabled;
     static boolean locationEnabled;
+    static boolean bracketColorEnabled;
     static FileConfiguration config;
     final String version = getDescription().getVersion();
 
@@ -38,6 +39,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         environmentEnabled = config.getBoolean("Show dimension");
         locationEnabled = config.getBoolean("Show location");
+        bracketColorEnabled = config.getBoolean("Color brackets");
 
         manager.registerEvents(this, this);
 
@@ -104,27 +106,30 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         String world = "";
 
+        Environment environment = player.getWorld().getEnvironment();
+
+        switch (environment) {
+            case NORMAL:
+                world = "Overworld";
+                break;
+            case NETHER:
+                world = "Nether";
+                break;
+            case THE_END:
+                world = "End";
+                break;
+            default:
+                world = environment.toString();
+                break;
+        }
+            
+        String colourcode = config.getString("Colour for The " + world);
+
+        String theworld = "";
+
         if (environmentEnabled) {
-            Environment environment = player.getWorld().getEnvironment();
 
-            switch (environment) {
-                case NORMAL:
-                    world = "Overworld";
-                    break;
-                case NETHER:
-                    world = "Nether";
-                    break;
-                case THE_END:
-                    world = "End";
-                    break;
-                default:
-                    world = environment.toString();
-                    break;
-            }
-
-            String colourcode = config.getString("Colour for The " + world);
-
-            world = colourcode + "The " + world + CraftColours.RESET;
+            theworld = colourcode + "The " + world + CraftColours.RESET;
         }
 
         String location = "";
@@ -142,7 +147,9 @@ public final class TabLocation extends JavaPlugin implements Listener {
         if (locationEnabled && environmentEnabled) {
             separator = ", ";
         }
-
-        return " " + CraftColours.WHITE + "[" + location + separator + world + "]";
+        if (!bracketColorEnabled) {
+            colourcode = CraftColours.WHITE;
+        }
+        return " " + colourcode + "[" + CraftColours.WHITE + location + separator + theworld + colourcode + "]";
     }
 }
