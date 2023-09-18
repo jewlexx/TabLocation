@@ -19,9 +19,15 @@ import org.bukkit.scoreboard.Team;
 
 import com.jewelexx.craftcolours.CraftColours;
 
+enum ShowDimension {
+    Minimal,
+    Expanded,
+    False,
+}
+
 public final class TabLocation extends JavaPlugin implements Listener {
     static final Logger log = Bukkit.getLogger();
-    static boolean environmentEnabled;
+    static ShowDimension environmentEnabled;
     static boolean locationEnabled;
     static FileConfiguration config;
     final String version = getDescription().getVersion();
@@ -36,7 +42,16 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         config = getConfig();
 
-        environmentEnabled = config.getBoolean("Show dimension");
+        String showDimension = config.getString("Show dimension");
+
+        if (showDimension.equals("minimal")) {
+            environmentEnabled = ShowDimension.Minimal;
+        } else if (showDimension.equals("true")) {
+            environmentEnabled = ShowDimension.Expanded;
+        } else {
+            environmentEnabled = ShowDimension.False;
+        }
+
         locationEnabled = config.getBoolean("Show location");
 
         manager.registerEvents(this, this);
@@ -98,13 +113,16 @@ public final class TabLocation extends JavaPlugin implements Listener {
     }
 
     protected static String getLoc(Player player) {
-        if ((!locationEnabled && !environmentEnabled) || player.hasPermission("tablocation.hide")) {
+        if ((!locationEnabled && environmentEnabled == ShowDimension.False)
+                || player.hasPermission("tablocation.hide")) {
             return "";
         }
 
+        String colourcode = CraftColours.WHITE;
+
         String world = "";
 
-        if (environmentEnabled) {
+        if (environmentEnabled != ShowDimension.False) {
             Environment environment = player.getWorld().getEnvironment();
 
             switch (environment) {
@@ -122,9 +140,15 @@ public final class TabLocation extends JavaPlugin implements Listener {
                     break;
             }
 
-            String colourcode = config.getString("Colour for The " + world);
+            String dimensionColourCode = config.getString("Colour for The " + world);
 
-            world = colourcode + "The " + world + CraftColours.RESET;
+            if (environmentEnabled == ShowDimension.Expanded) {
+                world = dimensionColourCode + "The " + world + CraftColours.RESET;
+            } else {
+                colourcode = dimensionColourCode;
+                // Hide `world` variable if displaying minimal
+                world = "";
+            }
         }
 
         String location = "";
@@ -139,10 +163,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         String separator = "";
 
-        if (locationEnabled && environmentEnabled) {
+        if (locationEnabled && environmentEnabled == ShowDimension.Expanded) {
             separator = ", ";
         }
 
-        return " " + CraftColours.WHITE + "[" + location + separator + world + "]";
+        return " " + colourcode + "[" + CraftColours.WHITE + location + separator + world + colourcode + "]";
     }
 }
