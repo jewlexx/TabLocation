@@ -19,9 +19,15 @@ import org.bukkit.scoreboard.Team;
 
 import com.jewelexx.craftcolours.CraftColours;
 
+enum ShowDimension {
+    Minimal,
+    Expanded,
+    False,
+}
+
 public final class TabLocation extends JavaPlugin implements Listener {
     static final Logger log = Bukkit.getLogger();
-    static boolean environmentEnabled;
+    static ShowDimension environmentEnabled;
     static boolean locationEnabled;
     static boolean bracketColourEnabled;
     static FileConfiguration config;
@@ -37,7 +43,16 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         config = getConfig();
 
-        environmentEnabled = config.getBoolean("Show dimension");
+        String showDimension = config.getString("Show dimension");
+
+        if (showDimension == "minimal") {
+            environmentEnabled = ShowDimension.Minimal;
+        } else if (showDimension == "true") {
+            environmentEnabled = ShowDimension.Expanded;
+        } else {
+            environmentEnabled = ShowDimension.False;
+        }
+
         locationEnabled = config.getBoolean("Show location");
         bracketColourEnabled = config.getBoolean("Colour brackets");
 
@@ -100,36 +115,38 @@ public final class TabLocation extends JavaPlugin implements Listener {
     }
 
     protected static String getLoc(Player player) {
-        if ((!locationEnabled && !environmentEnabled) || player.hasPermission("tablocation.hide")) {
+        if ((!locationEnabled && environmentEnabled == ShowDimension.False)
+                || player.hasPermission("tablocation.hide")) {
             return "";
         }
 
+        String colourcode = CraftColours.WHITE;
+
         String world = "";
 
-        Environment environment = player.getWorld().getEnvironment();
+        if (environmentEnabled != ShowDimension.False) {
+            Environment environment = player.getWorld().getEnvironment();
 
-        switch (environment) {
-            case NORMAL:
-                world = "Overworld";
-                break;
-            case NETHER:
-                world = "Nether";
-                break;
-            case THE_END:
-                world = "End";
-                break;
-            default:
-                world = environment.toString();
-                break;
-        }
-            
-        String colourcode = config.getString("Colour for The " + world);
+            switch (environment) {
+                case NORMAL:
+                    world = "Overworld";
+                    break;
+                case NETHER:
+                    world = "Nether";
+                    break;
+                case THE_END:
+                    world = "End";
+                    break;
+                default:
+                    world = environment.toString();
+                    break;
+            }
 
-        String theworld = "";
+            colourcode = config.getString("Colour for The " + world);
 
-        if (environmentEnabled) {
-
-            theworld = colourcode + "The " + world + CraftColours.RESET;
+            if (environmentEnabled == ShowDimension.Expanded) {
+                world = colourcode + "The " + world + CraftColours.RESET;
+            }
         }
 
         String location = "";
@@ -144,12 +161,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         String separator = "";
 
-        if (locationEnabled && environmentEnabled) {
+        if (locationEnabled && environmentEnabled == ShowDimension.Expanded) {
             separator = ", ";
         }
-        if (!bracketColourEnabled) {
-            colourcode = CraftColours.WHITE;
-        }
-        return " " + colourcode + "[" + CraftColours.WHITE + location + separator + theworld + colourcode + "]";
+
+        return " " + colourcode + "[" + CraftColours.WHITE + location + separator + world + colourcode + "]";
     }
 }
