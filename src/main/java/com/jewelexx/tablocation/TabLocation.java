@@ -89,7 +89,6 @@ public final class TabLocation extends JavaPlugin implements Listener {
         Block from = e.getFrom().getBlock();
         Block to = e.getTo().getBlock();
         if (from.getX() != to.getX() || from.getY() != to.getY() || from.getZ() != to.getZ()) {
-            log.info("Player moved");
             Player player = e.getPlayer();
             player.setPlayerListName(player.getDisplayName() + getLoc(player));
         }
