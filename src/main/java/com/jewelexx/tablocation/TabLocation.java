@@ -1,6 +1,7 @@
 package com.jewelexx.tablocation;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,16 +58,14 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         log.info("===================================");
         log.info("Plugin has been enabled!");
-        log.info("You are using §aTabLocation,");
-        log.info("Version §6" + ver);
-        log.info("Java version §6" + javaver);
-        log.info("Developed by §ajamesina");
+        log.info("You are using " + ChatColor.GREEN + "TabLocation,");
+        log.info("Version " + ChatColor.GOLD + ver);
+        log.info("Java version " + ChatColor.GOLD + javaver);
+        log.info("Developed with 💗 by Juliette Cordor");
         log.info("===================================");
 
         new UpdateChecker(this, 83894).getVersion(version -> {
-            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                log.info("[TabLocation] There is not a new update available.");
-            } else {
+            if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
                 log.warning("[TabLocation] There is a new update available.");
             }
         });
