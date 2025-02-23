@@ -2,6 +2,7 @@ package com.jewelexx.tablocation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -27,8 +28,6 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         PluginManager manager = Bukkit.getPluginManager();
 
-        // Plugin startup logic
-
         saveDefaultConfig();
 
         config = getConfig();
@@ -53,18 +52,14 @@ public final class TabLocation extends JavaPlugin implements Listener {
                 log.warning("[TabLocation] There is a new update available.");
             }
         });
-
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
-
         log.info("===================================");
         log.info("Plugin has been disabled!");
         log.info("Thank you for using TabLocation!");
         log.info("===================================");
-
     }
 
     @EventHandler
@@ -95,21 +90,29 @@ public final class TabLocation extends JavaPlugin implements Listener {
         if (environment) {
             /**
              * The environment is formatted as follows:
-             * - Overworld
+             * - Normal
              * - Nether
              * - The_End
              *
              * And in order to convert it into a string and remove the underscore in
              * "The_End" we have this mess.
              */
-            String[] split = player.getWorld().getEnvironment().name().toLowerCase().split("_");
-            String s = split[split.length - 1];
+            Environment environment = player.getWorld().getEnvironment();
 
-            if (s.equals("normal")) {
-                s = "Overworld";
+            switch (environment) {
+                case NORMAL:
+                    world = "Overworld";
+                    break;
+                case NETHER:
+                    world = "Nether";
+                    break;
+                case THE_END:
+                    world = "End";
+                    break;
+                default:
+                    world = environment.toString();
+                    break;
             }
-
-            world = s.substring(0, 1).toUpperCase() + s.substring(1);
 
             String colourcode = config.getString("Colour for The " + world);
 
