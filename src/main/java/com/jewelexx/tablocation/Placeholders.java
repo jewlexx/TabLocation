@@ -1,9 +1,9 @@
 package com.jewelexx.tablocation;
 
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 /**
  * This class will be registered through the register-method in the
@@ -113,13 +113,10 @@ public class Placeholders extends PlaceholderExpansion {
             return "";
         }
 
-        // %someplugin_placeholder1%
         if (identifier.equals("location")) {
             return plugin.getConfig().getString("location", TabLocation.getLoc(player));
         }
 
-        // We return null if an invalid placeholder (f.e. %someplugin_placeholder3%)
-        // was provided
         return null;
     }
 }
