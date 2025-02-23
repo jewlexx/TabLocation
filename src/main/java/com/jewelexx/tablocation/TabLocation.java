@@ -17,40 +17,39 @@ import com.jewelexx.tablocation.Utils.Placeholders;
 import com.jewelexx.tablocation.Utils.UpdateChecker;
 
 public final class TabLocation extends JavaPlugin implements Listener {
-
-    public static Logger log = Bukkit.getLogger();
-    public static String ver;
-    public static String hide = "tablocation.hide";
-    public static String javaver = System.getProperty("java.version");
-    public static FileConfiguration config;
-    public static boolean environment = true;
-    public static boolean locationBool = true;
-    public static String colourcode;
+    static String javaver = System.getProperty("java.version");
+    static Logger log = Bukkit.getLogger();
+    static String ver;
+    static boolean environment;
+    static boolean locationBool;
+    static String colourcode;
+    static FileConfiguration config;
 
     @Override
     public void onEnable() {
-        int pluginId = 9922;
-        new org.bstats.bukkit.Metrics(this, pluginId);
+        new org.bstats.bukkit.Metrics(this, 9922);
 
         // Plugin startup logic
 
-        ver = this.getDescription().getVersion();
-
-        Bukkit.getPluginManager().registerEvents(this, this);
+        ver = getDescription().getVersion();
 
         config = getConfig();
 
         config.options().copyDefaults(true);
         config.addDefault("Show dimension", true);
         config.addDefault("Show location", true);
-        config.addDefault("Colour for dimension", "§5");
+        config.addDefault("Colour for Overworld", "§a");
+        config.addDefault("Colour for Nether", "§4");
+        config.addDefault("Colour for The End", "§5");
         saveDefaultConfig();
         saveConfig();
 
-        colourcode = config.getString("Colour for dimension");
+        colourcode = config.getString("Colour for Overworld");
 
         environment = config.getBoolean("Show dimension");
         locationBool = config.getBoolean("Show location");
+
+        Bukkit.getPluginManager().registerEvents(this, this);
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new Placeholders(this).register();
@@ -64,7 +63,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
         log.info("===================================");
 
         new UpdateChecker(this, 83894).getVersion(version -> {
-            if (this.getDescription().getVersion() != version) {
+            if (getDescription().getVersion() != version) {
                 log.warning("[TabLocation] There is a new update available.");
             }
         });
@@ -93,7 +92,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     }
 
     public static String getLoc(Player player) {
-        if ((!locationBool && !environment) || player.hasPermission(hide)) {
+        if ((!locationBool && !environment) || player.hasPermission("tablocation.hide")) {
             return "";
         }
 
