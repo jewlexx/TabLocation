@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ import com.jewelexx.tablocation.Utils.UpdateChecker;
 public final class TabLocation extends JavaPlugin implements Listener {
     static String javaver = System.getProperty("java.version");
     static Logger log = Bukkit.getLogger();
+    static PluginManager manager = Bukkit.getPluginManager();
     static String ver;
     static boolean environment;
     static boolean locationBool;
@@ -49,9 +51,9 @@ public final class TabLocation extends JavaPlugin implements Listener {
         environment = config.getBoolean("Show dimension");
         locationBool = config.getBoolean("Show location");
 
-        Bukkit.getPluginManager().registerEvents(this, this);
+        manager.registerEvents(this, this);
 
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+        if (manager.getPlugin("PlaceholderAPI") != null) {
             new Placeholders(this).register();
         }
 
