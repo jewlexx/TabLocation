@@ -1,8 +1,8 @@
 # User-specific stuff
 .idea/
 
-*.iml
 *.ipr
+*.iml
 *.iws
 
 # IntelliJ
