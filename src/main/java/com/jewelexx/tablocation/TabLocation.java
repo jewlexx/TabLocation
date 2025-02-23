@@ -3,6 +3,7 @@ package com.jewelexx.tablocation;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World.Environment;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,7 +24,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static String hide = "tablocation.hide";
     public static String javaver = System.getProperty("java.version");
     public static FileConfiguration config;
-    public static boolean enviroment = true;
+    public static boolean environment = true;
     public static boolean locationBool = true;
     public static String colourcode;
 
@@ -50,7 +51,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         colourcode = config.getString("Colour for dimension");
 
-        enviroment = config.getBoolean("Show dimension");
+        environment = config.getBoolean("Show dimension");
         locationBool = config.getBoolean("Show location");
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
@@ -94,50 +95,41 @@ public final class TabLocation extends JavaPlugin implements Listener {
     }
 
     public static String getLoc(Player player) {
-        if (!player.hasPermission(hide)) {
-            String world = "";
-
-            for (String s : String.valueOf(player.getWorld().getEnvironment()).toLowerCase().split("_")) {
-                if (s.equals("normal")) {
-                    s = "Overworld";
-                }
-                world = s.substring(0, 1).toUpperCase() + s.substring(1);
-            }
-
-            if (world.equalsIgnoreCase("normal")) {
-                world = "Overworld";
-            }
-            world = colourcode + "The " + world + "§f";
-
-            String location = player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", "
-                    + player.getLocation().getBlockZ();
-
-            if (!enviroment) {
-                world = "";
-            }
-
-            if (!locationBool) {
-                location = "";
-            }
-
-            String separator = ", ";
-
-            if ((!locationBool && enviroment) || (!enviroment && locationBool)) {
-                separator = "";
-            }
-
-            String tabLoc = " [" + location + separator + world + "]";
-
-            if (!locationBool && !enviroment) {
-                tabLoc = "";
-            }
-
-            return tabLoc;
-        } else {
-            if (!player.getPlayerListName().equals(player.getName())) {
-                return "";
-            }
+        if ((!locationBool && !environment) || player.hasPermission(hide)) {
+            return "";
         }
-        return "";
+
+        String world = "";
+
+        if (environment) {
+            String s = player.getWorld().getEnvironment().toString().toLowerCase().replace('_', ' ');
+
+            if (s.equals("normal")) {
+                s = "Overworld";
+            }
+            world = s.substring(0, 1).toUpperCase() + s.substring(1);
+
+            world = String.format("%s%s§f", colourcode, world);
+        }
+
+        String location = "";
+
+        if (locationBool) {
+            Location loc = player.getLocation();
+            int x = loc.getBlockX();
+            int y = loc.getBlockY();
+            int z = loc.getBlockZ();
+            location = String.format("%s, %s, %s", x, y, z);
+        }
+
+        String separator = ", ";
+
+        if (locationBool || environment) {
+            separator = "";
+        }
+
+        String tabLoc = " [" + location + separator + world + "]";
+
+        return tabLoc;
     }
 }
