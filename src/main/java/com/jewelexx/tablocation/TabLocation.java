@@ -29,7 +29,6 @@ public final class TabLocation extends JavaPlugin implements Listener {
     static final Logger log = Bukkit.getLogger();
     static ShowDimension environmentEnabled;
     static boolean locationEnabled;
-    static boolean bracketColourEnabled;
     static FileConfiguration config;
     final String version = getDescription().getVersion();
 
@@ -45,16 +44,15 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         String showDimension = config.getString("Show dimension");
 
-        if (showDimension == "minimal") {
+        if (showDimension.equals("minimal")) {
             environmentEnabled = ShowDimension.Minimal;
-        } else if (showDimension == "true") {
+        } else if (showDimension.equals("true")) {
             environmentEnabled = ShowDimension.Expanded;
         } else {
             environmentEnabled = ShowDimension.False;
         }
 
         locationEnabled = config.getBoolean("Show location");
-        bracketColourEnabled = config.getBoolean("Colour brackets");
 
         manager.registerEvents(this, this);
 
@@ -142,10 +140,14 @@ public final class TabLocation extends JavaPlugin implements Listener {
                     break;
             }
 
-            colourcode = config.getString("Colour for The " + world);
+            String dimensionColourCode = config.getString("Colour for The " + world);
 
             if (environmentEnabled == ShowDimension.Expanded) {
-                world = colourcode + "The " + world + CraftColours.RESET;
+                world = dimensionColourCode + "The " + world + CraftColours.RESET;
+            } else {
+                colourcode = dimensionColourCode;
+                // Hide `world` variable if displaying minimal
+                world = "";
             }
         }
 
