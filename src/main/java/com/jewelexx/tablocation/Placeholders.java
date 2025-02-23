@@ -1,9 +1,9 @@
 package com.jewelexx.tablocation;
 
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 /**
  * This class will be registered through the register-method in the
