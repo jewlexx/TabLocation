@@ -13,9 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
-import com.jewelexx.tablocation.Other.Metrics;
-import com.jewelexx.tablocation.Other.Placeholders;
-import com.jewelexx.tablocation.Other.UpdateChecker;
+import com.jewelexx.tablocation.Utils.Placeholders;
+import com.jewelexx.tablocation.Utils.UpdateChecker;
 
 public final class TabLocation extends JavaPlugin implements Listener {
 
@@ -31,7 +30,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         int pluginId = 9922;
-        new Metrics(this, pluginId);
+        new org.bstats.bukkit.Metrics(this, pluginId);
 
         // Plugin startup logic
 
