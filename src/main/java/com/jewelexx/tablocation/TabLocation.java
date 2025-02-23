@@ -49,7 +49,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
         log.info("Developed with 💗 by Juliette Cordor");
         log.info("===================================");
 
-        new UpdateChecker(this, 83894).getVersion(version -> {
+        new UpdateChecker(this).getVersion(version -> {
             if (!getDescription().getVersion().equals(version)) {
                 log.warning("[TabLocation] There is a new update available.");
             }
