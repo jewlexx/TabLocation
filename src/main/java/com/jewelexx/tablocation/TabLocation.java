@@ -128,8 +128,6 @@ public final class TabLocation extends JavaPlugin implements Listener {
             separator = ", ";
         }
 
-        String tabLoc = " " + CraftColours.WHITE + "[" + location + separator + world + "]";
-
-        return tabLoc;
+        return " " + CraftColours.WHITE + "[" + location + separator + world + "]";
     }
 }
