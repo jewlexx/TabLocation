@@ -1,4 +1,4 @@
-package com.jamesina.tablocation.Other;
+package com.jewelexx.tablocation.Other;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

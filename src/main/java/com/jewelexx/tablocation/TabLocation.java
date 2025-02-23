@@ -1,8 +1,5 @@
-package com.jamesina.tablocation;
+package com.jewelexx.tablocation;
 
-import com.jamesina.tablocation.Other.Metrics;
-import com.jamesina.tablocation.Other.Placeholders;
-import com.jamesina.tablocation.Other.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -12,6 +9,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
+
+import com.jewelexx.tablocation.Other.Metrics;
+import com.jewelexx.tablocation.Other.Placeholders;
+import com.jewelexx.tablocation.Other.UpdateChecker;
 
 public final class TabLocation extends JavaPlugin implements Listener {
 
