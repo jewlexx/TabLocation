@@ -95,7 +95,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
             if (world.equalsIgnoreCase("normal")) {
                 world = "Overworld";
             }
-            world = ", " + colourcode + "The " + world + "§f";
+            world = colourcode + "The " + world + "§f";
 
             String location = player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
 
@@ -107,7 +107,17 @@ public final class TabLocation extends JavaPlugin implements Listener {
                 location = "";
             }
 
-            String tabLoc = " (" + location + world + ")";
+            String separator = ", ";
+
+            if ((!locationBool && enviroment) || (!enviroment && locationBool)) {
+                separator = "";
+            }
+
+            String tabLoc = " [" + location + separator + world + "]";
+
+            if (!locationBool && !enviroment) {
+                tabLoc = "";
+            }
 
             player.setPlayerListName(player.getDisplayName() + tabLoc);
         } else {
