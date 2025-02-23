@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class UpdateChecker {
-
     private JavaPlugin plugin;
     private int resourceId;
 
