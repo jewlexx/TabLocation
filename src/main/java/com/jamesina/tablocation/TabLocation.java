@@ -1,6 +1,7 @@
 package com.jamesina.tablocation;
 
 import com.jamesina.tablocation.Other.Metrics;
+import com.jamesina.tablocation.Other.Placeholders;
 import com.jamesina.tablocation.Other.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -49,6 +50,9 @@ public final class TabLocation extends JavaPlugin implements Listener {
         enviroment = config.getBoolean("Show dimension");
         locationBool = config.getBoolean("Show location");
 
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+            new Placeholders(this).register();
+        }
 
         log.info("===================================");
         log.info("Plugin has been enabled!");
@@ -97,7 +101,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
             }
             world = colourcode + "The " + world + "§f";
 
-            String location = player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
+            String location = getLoc(player);
 
             if (!enviroment) {
                 world = "";
@@ -132,5 +136,9 @@ public final class TabLocation extends JavaPlugin implements Listener {
                 + world + "]";
 
         player.setPlayerListName(player.getDisplayName() + location);
+    }
+
+    public static String getLoc(Player player) {
+        return player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
     }
 }
