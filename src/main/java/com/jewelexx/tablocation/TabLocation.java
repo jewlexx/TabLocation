@@ -1,7 +1,6 @@
 package com.jewelexx.tablocation;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -59,8 +58,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         log.info("===================================");
         log.info("TabLocation has been enabled!");
-        log.info("Version " + ChatColor.GOLD + ver);
-        log.info("Java version " + ChatColor.GOLD + javaver);
+        log.info("Version " + ver);
+        log.info("Java version " + javaver);
         log.info("Developed with 💗 by Juliette Cordor");
         log.info("===================================");
 
