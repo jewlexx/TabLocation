@@ -1,0 +1,1 @@
+This is my own library for getting Minecraft colour codes in a more intuitive way. This must be installed seperately until it is published somewhere.
