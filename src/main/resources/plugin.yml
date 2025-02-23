@@ -4,3 +4,7 @@ main: com.jamesafk.tablocation.TabLocation
 api-version: 1.16
 authors: [ JamesAfk ]
 description: Adds the players location to their tab name, so you can see where they are by pressing tab at any time
+permissions:
+  tablocation.hide:
+    description: Hides your location from your name
+    default: false
