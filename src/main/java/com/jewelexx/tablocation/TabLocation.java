@@ -1,5 +1,7 @@
 package com.jewelexx.tablocation;
 
+import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
@@ -13,9 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.jewelexx.mccolours.MCColours;
-
-import java.util.logging.Logger;
+import com.jewelexx.craftcolours.CraftColours;
 
 public final class TabLocation extends JavaPlugin implements Listener {
     static final Logger log = Bukkit.getLogger();
@@ -109,7 +109,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
             String colourcode = config.getString("Colour for The " + world);
 
-            world = String.format("%sThe %s§f", colourcode, world);
+            world = colourcode + "The " + CraftColours.WHITE + world;
         }
 
         String location = "";
@@ -119,7 +119,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
             int x = loc.getBlockX();
             int y = loc.getBlockY();
             int z = loc.getBlockZ();
-            location = String.format("%s, %s, %s", x, y, z);
+            location = x + ", " + y + ", " + z;
         }
 
         String separator = "";
