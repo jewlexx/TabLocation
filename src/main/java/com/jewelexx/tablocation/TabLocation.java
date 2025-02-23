@@ -23,7 +23,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
     static final Logger log = Bukkit.getLogger();
     static boolean environmentEnabled;
     static boolean locationEnabled;
-    static boolean bracketColorEnabled;
+    static boolean bracketColourEnabled;
     static FileConfiguration config;
     final String version = getDescription().getVersion();
 
@@ -39,7 +39,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         environmentEnabled = config.getBoolean("Show dimension");
         locationEnabled = config.getBoolean("Show location");
-        bracketColorEnabled = config.getBoolean("Color brackets");
+        bracketColourEnabled = config.getBoolean("Colour brackets");
 
         manager.registerEvents(this, this);
 
@@ -147,7 +147,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
         if (locationEnabled && environmentEnabled) {
             separator = ", ";
         }
-        if (!bracketColorEnabled) {
+        if (!bracketColourEnabled) {
             colourcode = CraftColours.WHITE;
         }
         return " " + colourcode + "[" + CraftColours.WHITE + location + separator + theworld + colourcode + "]";
