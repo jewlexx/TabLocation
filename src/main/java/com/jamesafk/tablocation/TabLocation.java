@@ -12,14 +12,22 @@ import java.util.logging.Logger;
 public final class TabLocation extends JavaPlugin implements Listener {
 
     public static Logger log = Bukkit.getLogger();
+    public static String ver;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
 
+        ver = this.getDescription().getVersion();
+
         Bukkit.getPluginManager().registerEvents(this, this);
 
+        log.info("===================================");
         log.info("Plugin has been enabled!");
+        log.info("You are using §aTabLocation,");
+        log.info("Version §6" + ver);
+        log.info("Developed by §aJamesAfk");
+        log.info("===================================");
 
     }
 
@@ -27,7 +35,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public void onDisable() {
         // Plugin shutdown logic
 
+        log.info("===================================");
         log.info("Plugin has been disabled!");
+        log.info("Thank you for using TabLocation!");
+        log.info("===================================");
 
     }
 
