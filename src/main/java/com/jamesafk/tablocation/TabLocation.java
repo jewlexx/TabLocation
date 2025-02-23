@@ -31,11 +31,13 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
+        saveDefaultConfig();
         saveConfig();
         saveDefaultConfig();
         config = getConfig();
         config.options().copyDefaults(true);
         config.addDefault("Add dimension to location", true);
+        config.addDefault("Colour for dimension", "§5");
         saveDefaultConfig();
         saveConfig();
 
