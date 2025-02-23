@@ -108,7 +108,7 @@ public class Placeholders extends PlaceholderExpansion {
 
         // %someplugin_placeholder1%
         if(identifier.equals("location")){
-            return plugin.getConfig().getString("location", "[" + TabLocation.getLoc(player) + "]");
+            return plugin.getConfig().getString("location", TabLocation.getLoc(player));
         }
 
         // We return null if an invalid placeholder (f.e. %someplugin_placeholder3%)
