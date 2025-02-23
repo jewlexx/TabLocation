@@ -14,6 +14,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import com.jewelexx.craftcolours.CraftColours;
 
@@ -78,8 +80,21 @@ public final class TabLocation extends JavaPlugin implements Listener {
         updateLocation(e.getPlayer());
     }
 
+    static String withTeamName(Player player) {
+        String name = player.getDisplayName();
+        Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+
+        for (Team team : sb.getTeams()) {
+            if (team.hasEntry(player.getName())) {
+                return team.getColor() + team.getPrefix() + name + team.getSuffix() + CraftColours.RESET;
+            }
+        }
+
+        return name;
+    }
+
     static void updateLocation(Player player) {
-        player.setPlayerListName(player.getPlayerListName() + getLoc(player));
+        player.setPlayerListName(withTeamName(player) + getLoc(player));
     }
 
     protected static String getLoc(Player player) {
@@ -109,7 +124,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
             String colourcode = config.getString("Colour for The " + world);
 
-            world = colourcode + "The " + CraftColours.WHITE + world;
+            world = colourcode + "The " + world;
         }
 
         String location = "";
