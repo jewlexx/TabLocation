@@ -1,7 +1,7 @@
 name: TabLocation
 version: ${project.version}
 main: com.jamesafk.tablocation.TabLocation
-api-version: 1.16
+api-version: 1.13
 authors: [ JamesAfk ]
 description: Adds the players location to their tab name, so you can see where they are by pressing tab at any time
 permissions:
