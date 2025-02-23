@@ -42,7 +42,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
         config.addDefault("Colour for Overworld", "§a");
         config.addDefault("Colour for Nether", "§4");
         config.addDefault("Colour for The End", "§5");
-        saveDefaultConfig();
+        saveConfig();
 
         colourcode = config.getString("Colour for Overworld");
 
