@@ -2,6 +2,7 @@ package com.jewelexx.tablocation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,15 +58,14 @@ public final class TabLocation extends JavaPlugin implements Listener {
         }
 
         log.info("===================================");
-        log.info("Plugin has been enabled!");
-        log.info("You are using " + ChatColor.GREEN + "TabLocation");
+        log.info("TabLocation has been enabled!");
         log.info("Version " + ChatColor.GOLD + ver);
         log.info("Java version " + ChatColor.GOLD + javaver);
         log.info("Developed with 💗 by Juliette Cordor");
         log.info("===================================");
 
         new UpdateChecker(this, 83894).getVersion(version -> {
-            if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
+            if (this.getDescription().getVersion() != version) {
                 log.warning("[TabLocation] There is a new update available.");
             }
         });
@@ -84,9 +84,13 @@ public final class TabLocation extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-        player.setPlayerListName(player.getDisplayName() + getLoc(player));
+    public void onPlayerMove(PlayerMoveEvent e) {
+        Location from = e.getFrom();
+        Location to = e.getTo();
+        if (from.getX() != to.getX() || from.getZ() != to.getZ() || from.getY() != to.getY()) {
+            Player player = e.getPlayer();
+            player.setPlayerListName(player.getDisplayName() + getLoc(player));
+        }
     }
 
     public static String getLoc(Player player) {
