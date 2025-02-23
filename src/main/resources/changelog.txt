@@ -1,2 +1,7 @@
+1.5.0 Full Changelog:
+[New] Added options for colours for each individual dimension
+[New] Updates location on join
+[Performance] Massive improvements to performance
+
 1.4.1 Full Changelog:
 [New] Added placeholders for support with other playerlist plugins

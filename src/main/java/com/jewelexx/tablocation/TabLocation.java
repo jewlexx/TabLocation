@@ -21,7 +21,6 @@ public final class TabLocation extends JavaPlugin implements Listener {
     static String ver;
     static boolean environment;
     static boolean locationBool;
-    static String colourcode;
     static FileConfiguration config;
 
     @Override
@@ -37,12 +36,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
         config.options().copyDefaults(true);
         config.addDefault("Show dimension", true);
         config.addDefault("Show location", true);
-        config.addDefault("Colour for Overworld", "§a");
-        config.addDefault("Colour for Nether", "§4");
+        config.addDefault("Colour for The Overworld", "§a");
+        config.addDefault("Colour for The Nether", "§4");
         config.addDefault("Colour for The End", "§5");
         saveConfig();
-
-        colourcode = config.getString("Colour for Overworld");
 
         environment = config.getBoolean("Show dimension");
         locationBool = config.getBoolean("Show location");
@@ -114,13 +111,17 @@ public final class TabLocation extends JavaPlugin implements Listener {
              * And in order to convert it into a string and remove the underscore in
              * "The_End" we have this mess.
              */
-            String s = player.getWorld().getEnvironment().name().toLowerCase().split("_")[0];
+            String[] split = player.getWorld().getEnvironment().name().toLowerCase().split("_");
+            String s = split[split.length - 1];
 
             if (s.equals("normal")) {
                 s = "Overworld";
             }
 
             world = s.substring(0, 1).toUpperCase() + s.substring(1);
+
+            log.info("Colour for The " + world);
+            String colourcode = config.getString("Colour for The " + world);
 
             world = String.format("%sThe %s§f", colourcode, world);
         }
