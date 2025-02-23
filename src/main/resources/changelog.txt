@@ -1,3 +1,7 @@
+1.5.1 Full Changelog:
+[Fix] Update checker always saying new update
+[Chore] Update API version
+
 1.5.0 Full Changelog:
 [New] Added options for colours for each individual dimension
 [New] Updates location on join
