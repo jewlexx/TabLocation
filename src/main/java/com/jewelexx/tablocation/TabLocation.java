@@ -39,9 +39,8 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
-        saveConfig();
-        saveDefaultConfig();
         config = getConfig();
+
         config.options().copyDefaults(true);
         config.addDefault("Show dimension", true);
         config.addDefault("Show location", true);
