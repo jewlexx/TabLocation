@@ -13,6 +13,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.jewelexx.mccolours.MCColours;
+
 import java.util.logging.Logger;
 
 public final class TabLocation extends JavaPlugin implements Listener {
@@ -126,7 +128,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
             separator = ", ";
         }
 
-        String tabLoc = " §f[" + location + separator + world + "]";
+        String tabLoc = " " + CraftColours.WHITE + "[" + location + separator + world + "]";
 
         return tabLoc;
     }
