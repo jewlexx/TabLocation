@@ -3,6 +3,7 @@ package com.jewelexx.tablocation;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -85,9 +86,10 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
-        Location from = e.getFrom();
-        Location to = e.getTo();
-        if (from.getX() != to.getX() || from.getZ() != to.getZ() || from.getY() != to.getY()) {
+        Block from = e.getFrom().getBlock();
+        Block to = e.getTo().getBlock();
+        if (from.getX() != to.getX() || from.getY() != to.getY() || from.getZ() != to.getZ()) {
+            log.info("Player moved");
             Player player = e.getPlayer();
             player.setPlayerListName(player.getDisplayName() + getLoc(player));
         }
