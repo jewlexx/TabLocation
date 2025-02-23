@@ -25,7 +25,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        int pluginId = 9922; // <-- Replace with the id of your plugin!
+        int pluginId = 9922;
         new Metrics(this, pluginId);
 
         // Plugin startup logic
@@ -83,11 +83,12 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (!player.hasPermission(hide)) {
-            String world = String.valueOf(player.getWorld().getEnvironment());
+            String world = "";
 
-            String[] worlds = world.toLowerCase().split("_");
-
-            for (String s : worlds) {
+            for (String s : String.valueOf(player.getWorld().getEnvironment()).toLowerCase().split("_")) {
+                if (s.equals("normal")) {
+                    s = "Overworld";
+                }
                 world = s.substring(0, 1).toUpperCase() + s.substring(1);
             }
 
@@ -112,7 +113,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
                 separator = "";
             }
 
-            String tabLoc = " [" + location + separator + world + "]";
+            String tabLoc = " (" + location + separator + world + ")";
 
             if (!locationBool && !enviroment) {
                 tabLoc = "";
