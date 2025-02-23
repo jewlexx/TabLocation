@@ -1,4 +1,4 @@
-package com.jamesafk.tablocation;
+package com.jamesina.tablocation;
 
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -21,12 +21,22 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static boolean enviroment = true;
     public static String colourcode;
 
+    private int resourceId;
+
     @Override
     public void onEnable() {
         // All you have to do is adding the following two lines in your onEnable method.
         // You can find the plugin ids of your plugins on the page https://bstats.org/what-is-my-plugin-id
         int pluginId = 9922; // <-- Replace with the id of your plugin!
         Metrics metrics = new Metrics(this, pluginId);
+
+        new UpdateChecker(this, 83894).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                log.info("There is not a new update available.");
+            } else {
+                log.warning("There is a new update available.");
+            }
+        });
 
         // Plugin startup logic
 
