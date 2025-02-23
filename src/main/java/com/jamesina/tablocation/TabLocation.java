@@ -1,5 +1,6 @@
-package com.jamesafk.tablocation;
+package com.jamesina.tablocation;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -20,8 +21,13 @@ public final class TabLocation extends JavaPlugin implements Listener {
     public static boolean enviroment = true;
     public static String colourcode;
 
+    private int resourceId;
+
     @Override
     public void onEnable() {
+        int pluginId = 9922; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
+
         // Plugin startup logic
 
         ver = this.getDescription().getVersion();
@@ -47,8 +53,16 @@ public final class TabLocation extends JavaPlugin implements Listener {
         log.info("You are using §aTabLocation,");
         log.info("Version §6" + ver);
         log.info("Java version §6" + javaver);
-        log.info("Developed by §aJamesAfk");
+        log.info("Developed by §ajamesina");
         log.info("===================================");
+
+        new UpdateChecker(this, 83894).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                log.info("[TabLocation] There is not a new update available.");
+            } else {
+                log.warning("[TabLocation] There is a new update available.");
+            }
+        });
 
     }
 
