@@ -1,5 +1,6 @@
 1.5.1 Full Changelog:
 [Fix] Update checker always saying new update
+[Fix] Colour not being white on the first part of the location string
 [Chore] Update API version
 
 1.5.0 Full Changelog:

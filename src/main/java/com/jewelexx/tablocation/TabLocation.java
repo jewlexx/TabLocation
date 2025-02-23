@@ -132,7 +132,7 @@ public final class TabLocation extends JavaPlugin implements Listener {
             separator = ", ";
         }
 
-        String tabLoc = " [" + location + separator + world + "]";
+        String tabLoc = " §f[" + location + separator + world + "]";
 
         return tabLoc;
     }
