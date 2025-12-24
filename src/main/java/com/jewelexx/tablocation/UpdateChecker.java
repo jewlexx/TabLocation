@@ -1,13 +1,14 @@
 package com.jewelexx.tablocation;
 
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.Consumer;
 
 import com.jewelexx.tablocation.github.Converter;
 import com.jewelexx.tablocation.github.Tags;
@@ -19,8 +20,9 @@ public class UpdateChecker {
         this.plugin = plugin;
     }
 
-    static String readStringFromURL(String requestURL) throws IOException {
-        try (Scanner scanner = new Scanner(new URL(requestURL).openStream(), StandardCharsets.UTF_8.toString())) {
+    static String readStringFromURL(String requestURL) throws IOException, URISyntaxException {
+        try (Scanner scanner = new Scanner(new URI(requestURL).toURL().openStream(),
+                StandardCharsets.UTF_8.toString())) {
             scanner.useDelimiter("\\A");
             return scanner.hasNext() ? scanner.next() : "";
         }
@@ -37,6 +39,8 @@ public class UpdateChecker {
 
                 consumer.accept(name);
             } catch (IOException exception) {
+                this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
+            } catch (URISyntaxException exception) {
                 this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
             }
         });
