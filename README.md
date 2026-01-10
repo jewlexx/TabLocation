@@ -1,5 +1,3 @@
-[![Kinetic Hosting Discount](https://i.imgur.com/nkGTcDi.png)](https://billing.kinetichosting.net/aff.php?aff=570)
-
 # TabLocation
 
 Adds the players location to their tab name, so you can see where they are by pressing tab at any time.
