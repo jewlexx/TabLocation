@@ -20,7 +20,7 @@ enum class ShowDimension {
 public class Tablocation : JavaPlugin(), Listener {
     val log = Bukkit.getLogger()
     lateinit var environmentEnabled: ShowDimension
-    var locationEnabled: Boolean? = null
+    var locationEnabled: Boolean = false
     val version = description.version
 
 
@@ -58,7 +58,11 @@ public class Tablocation : JavaPlugin(), Listener {
         log.info("Developed with 💗 by Juliette Cordor");
         log.info("===================================");
 
-        // TODO: update checker
+        UpdateChecker(this).getVersion { version ->
+            if (description.version != version) {
+                log.warning("[TabLocation] There is a new update available!")
+            }
+        }
     }
 
     override fun onDisable() {
@@ -107,7 +111,7 @@ public class Tablocation : JavaPlugin(), Listener {
             return ""
         }
 
-        var colourcode = CraftColours.WHITE
+        var colourCode = CraftColours.WHITE
 
         var world = ""
 
@@ -124,9 +128,9 @@ public class Tablocation : JavaPlugin(), Listener {
             val dimensionColourCode = config.getString("Colour for The $world") ?: ""
 
             if (environmentEnabled == ShowDimension.Expanded) {
-                world = "$dimensionColourCodeThe $world${CraftColours.RESET}"
+                world = "${dimensionColourCode}The $world${CraftColours.RESET}"
             } else {
-                colourcode = dimensionColourCode
+                colourCode = dimensionColourCode
                 // Hide `world` variable if displaying minimal
                 world = ""
             }
@@ -148,6 +152,6 @@ public class Tablocation : JavaPlugin(), Listener {
             separator = ", "
         }
 
-        return " $colourcode[$CPass{CraftColours.WHITE}$location$separator$world$colourcode]"
+        return " $colourCode[${CraftColours.WHITE}$location$separator$world$colourCode]"
     }
 }
