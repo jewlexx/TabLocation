@@ -10,9 +10,13 @@ repositories {
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:26.1.1-R0.1-SNAPSHOT")
+    compileOnly("me.clip:placeholderapi:2.11.7")
     implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.jewelexx:craftcolours:1.0.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.22.1")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.22.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.1")
 }
 
 kotlin {
