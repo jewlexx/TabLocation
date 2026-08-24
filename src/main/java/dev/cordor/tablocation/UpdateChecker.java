@@ -20,9 +20,9 @@ public class UpdateChecker {
         this.plugin = plugin;
     }
 
-    static String readStringFromURL(String requestURL) throws IOException, URISyntaxException {
-        try (Scanner scanner = new Scanner(new URI(requestURL).toURL().openStream(),
-                StandardCharsets.UTF_8.toString())) {
+    static String readStringFromURL() throws IOException, URISyntaxException {
+        try (Scanner scanner = new Scanner(new URI("https://api.github.com/repos/jewlexx/TabLocation/tags").toURL().openStream(),
+                StandardCharsets.UTF_8)) {
             scanner.useDelimiter("\\A");
             return scanner.hasNext() ? scanner.next() : "";
         }
@@ -32,15 +32,13 @@ public class UpdateChecker {
         Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
             try {
                 String inputStream = readStringFromURL(
-                        "https://api.github.com/repos/jewlexx/TabLocation/tags");
+                );
 
                 Tags latestTag = Converter.fromJsonString(inputStream)[0];
                 String name = latestTag.getName();
 
                 consumer.accept(name);
-            } catch (IOException exception) {
-                this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
-            } catch (URISyntaxException exception) {
+            } catch (IOException | URISyntaxException exception) {
                 this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
             }
         });
