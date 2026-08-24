@@ -2,7 +2,6 @@ package dev.cordor.tablocation
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion
 import org.bukkit.entity.Player
-import org.bukkit.plugin.java.JavaPlugin
 
 /**
  * This class will be registered through the register-method in the
@@ -16,7 +15,7 @@ class Placeholders
  * 
  * @param plugin
  * The instance of our plugin.
- */(private val plugin: JavaPlugin) : PlaceholderExpansion() {
+ */(private val plugin: Tablocation) : PlaceholderExpansion() {
     /**
      * Because this is an internal class,
      * you must override this method to let PlaceholderAPI know to not unregister
@@ -99,7 +98,7 @@ class Placeholders
         }
 
         if (identifier == "location") {
-            return plugin.getConfig().getString("location", TabLocation.getLoc(player))
+            return plugin.getConfig().getString("location", plugin.getLoc(player))
         }
 
         return null

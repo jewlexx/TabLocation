@@ -49,7 +49,7 @@ public class Tablocation : JavaPlugin(), Listener {
 
         manager.registerEvents(this, this)
         if (manager.getPlugin("PlaceholderAPI") != null) {
-            Placeholders(this!).register()
+            Placeholders(this).register()
         }
 
         log.info("===================================");

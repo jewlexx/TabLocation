@@ -10,11 +10,11 @@ import java.util.function.Consumer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.jewelexx.tablocation.github.Converter;
-import com.jewelexx.tablocation.github.Tags;
+import dev.cordor.tablocation.github.Converter;
+import dev.cordor.tablocation.github.Tags;
 
 public class UpdateChecker {
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
 
     public UpdateChecker(JavaPlugin plugin) {
         this.plugin = plugin;
