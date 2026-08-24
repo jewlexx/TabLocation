@@ -6,6 +6,8 @@ plugins {
 repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://oss.sonatype.org/content/groups/public/")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 }
 
 dependencies {
@@ -15,7 +17,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.jewelexx:craftcolours:1.0.0")
     implementation("com.fasterxml.jackson.core:jackson-core:2.22.1")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.22.1")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.22")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.22.1")
 }
 
