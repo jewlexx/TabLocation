@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:26.1.1-R0.1-SNAPSHOT")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
 
