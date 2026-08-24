@@ -4,14 +4,11 @@ import com.jewelexx.craftcolours.CraftColours
 import org.bukkit.plugin.java.JavaPlugin
 import org.bstats.bukkit.Metrics
 import org.bukkit.Bukkit
-import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
-import java.io.File
-import org.bukkit.Location
 import org.bukkit.World.Environment
 
 enum class ShowDimension {
@@ -20,7 +17,7 @@ enum class ShowDimension {
     False,
 }
 
-class Tablocation : JavaPlugin(), Listener {
+public class Tablocation : JavaPlugin(), Listener {
     val log = Bukkit.getLogger()
     lateinit var environmentEnabled: ShowDimension
     var locationEnabled: Boolean? = null
@@ -52,7 +49,7 @@ class Tablocation : JavaPlugin(), Listener {
 
         manager.registerEvents(this, this)
         if (manager.getPlugin("PlaceholderAPI") != null) {
-            // TODO: implement placeholders
+            Placeholders(this!).register()
         }
 
         log.info("===================================");
