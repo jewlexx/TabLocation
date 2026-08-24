@@ -17,7 +17,7 @@ enum class ShowDimension {
     False,
 }
 
-public class Tablocation : JavaPlugin(), Listener {
+class Tablocation : JavaPlugin(), Listener {
     val log = Bukkit.getLogger()
     lateinit var environmentEnabled: ShowDimension
     var locationEnabled: Boolean = false
@@ -52,11 +52,11 @@ public class Tablocation : JavaPlugin(), Listener {
             Placeholders(this).register()
         }
 
-        log.info("===================================");
-        log.info("TabLocation has been enabled!");
-        log.info("Version $version");
-        log.info("Developed with 💗 by Juliette Cordor");
-        log.info("===================================");
+        log.info("===================================")
+        log.info("TabLocation has been enabled!")
+        log.info("Version $version")
+        log.info("Developed with 💗 by Juliette Cordor")
+        log.info("===================================")
 
         UpdateChecker(this).getVersion { version ->
             if (description.version != version) {
@@ -66,10 +66,10 @@ public class Tablocation : JavaPlugin(), Listener {
     }
 
     override fun onDisable() {
-        log.info("===================================");
-        log.info("Plugin has been disabled!");
-        log.info("Thank you for using TabLocation!");
-        log.info("===================================");
+        log.info("===================================")
+        log.info("Plugin has been disabled!")
+        log.info("Thank you for using TabLocation!")
+        log.info("===================================")
     }
 
     @EventHandler
@@ -88,7 +88,7 @@ public class Tablocation : JavaPlugin(), Listener {
     }
 
     fun updateLocation(player: Player) {
-        player.setPlayerListName(withTeamName(player) + getLoc(player));
+        player.setPlayerListName(withTeamName(player) + getLoc(player))
     }
 
     fun withTeamName(player: Player): String {
@@ -101,7 +101,7 @@ public class Tablocation : JavaPlugin(), Listener {
             }
         }
 
-        return name;
+        return name
     }
 
     fun getLoc(player: Player): String {
