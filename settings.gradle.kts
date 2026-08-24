@@ -1,1 +1,1 @@
-rootProject.name = "TabLocation-kt"
+rootProject.name = "TabLocation"
