@@ -41,7 +41,7 @@ class Placeholders
     /**
      * The name of the person who created this expansion should go here.
      * <br></br>
-     * For convienience do we return the author from the plugin.yml
+     * For convenience do we return the author from the plugin.yml
      * 
      * @return The name of the author as a String.
      */
@@ -69,7 +69,7 @@ class Placeholders
      * <br></br>
      * You don't have to use numbers, since it is set as a String.
      * 
-     * For convienience do we return the version from the plugin.yml
+     * For convenience do we return the version from the plugin.yml
      * 
      * @return The version as a String.
      */

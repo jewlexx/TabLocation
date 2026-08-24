@@ -10,6 +10,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.World.Environment
+import java.net.URI
 
 enum class ShowDimension {
     Minimal,
@@ -18,7 +19,6 @@ enum class ShowDimension {
 }
 
 class Tablocation : JavaPlugin(), Listener {
-    val log = Bukkit.getLogger()
     lateinit var environmentEnabled: ShowDimension
     var locationEnabled: Boolean = false
     val version = description.version
@@ -52,24 +52,24 @@ class Tablocation : JavaPlugin(), Listener {
             Placeholders(this).register()
         }
 
-        log.info("===================================")
-        log.info("TabLocation has been enabled!")
-        log.info("Version $version")
-        log.info("Developed with 💗 by Juliette Cordor")
-        log.info("===================================")
+        logger.info("===================================")
+        logger.info("TabLocation has been enabled!")
+        logger.info("Version $version")
+        logger.info("Developed with 💗 by Juliette Cordor")
+        logger.info("===================================")
 
-        UpdateChecker(this).getVersion { version ->
+        UpdateChecker(this, URI("https://api.github.com/repos/jewlexx/TabLocation/tags").toURL()).getVersion { version ->
             if (description.version != version) {
-                log.warning("[TabLocation] There is a new update available!")
+                logger.warning("[TabLocation] There is a new update available!")
             }
         }
     }
 
     override fun onDisable() {
-        log.info("===================================")
-        log.info("Plugin has been disabled!")
-        log.info("Thank you for using TabLocation!")
-        log.info("===================================")
+        logger.info("===================================")
+        logger.info("Plugin has been disabled!")
+        logger.info("Thank you for using TabLocation!")
+        logger.info("===================================")
     }
 
     @EventHandler
