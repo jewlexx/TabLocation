@@ -1,0 +1,9 @@
+# Show the player's current dimension (false, true or minimal)
+Show dimension: true
+# Show the exact coordinates of the player
+Show location: true
+
+# The following are Minecraft colour codes from https://www.digminecraft.com/lists/color_list_pc.php
+Colour for The Overworld: §a
+Colour for The Nether: §4
+Colour for The End: §5

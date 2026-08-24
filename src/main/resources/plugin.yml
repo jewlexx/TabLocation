@@ -1,7 +1,12 @@
-name: tablocation
+name: TabLocation
 version: '${version}'
-
 main: dev.cordor.tablocation.Tablocation
-api-version: '26.1'
-
+api-version: 1.13
 authors: [ Juliette Cordor <me@cordor.dev> ]
+description: Adds the players location to their tab name, so you can see where they are by pressing tab at any time
+softdepend:
+  - PlaceholderAPI
+permissions:
+  tablocation.hide:
+    description: Hides your location from your name
+    default: false
