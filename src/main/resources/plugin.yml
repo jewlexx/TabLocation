@@ -1,8 +1,8 @@
 name: TabLocation
-version: 1.6.0
-main: com.jewelexx.tablocation.TabLocation
+version: '${version}'
+main: dev.cordor.tablocation.Tablocation
 api-version: 1.13
-authors: [jewelexx]
+authors: [ Juliette Cordor <me@cordor.dev> ]
 description: Adds the players location to their tab name, so you can see where they are by pressing tab at any time
 softdepend:
   - PlaceholderAPI
