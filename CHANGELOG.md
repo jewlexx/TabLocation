@@ -13,7 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Rewritten in Kotlin with added safety
 
-
 ## [1.6.1]
 
 ### Changed
