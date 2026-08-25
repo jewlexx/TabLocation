@@ -2,7 +2,6 @@ package dev.cordor.tablocation
 
 import com.jewelexx.craftcolours.CraftColours
 import org.bukkit.plugin.java.JavaPlugin
-import org.bstats.bukkit.Metrics
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -25,7 +24,7 @@ class Tablocation : JavaPlugin(), Listener {
 
 
     override fun onEnable() {
-        Metrics(this, 9922)
+        org.bstats.bukkit.Metrics(this, 9922)
 
         saveDefaultConfig()
         val showDimension = config.getString("Show dimension")
@@ -43,7 +42,7 @@ class Tablocation : JavaPlugin(), Listener {
                 ShowDimension.False
             }
         }
-        locationEnabled = config.getBoolean("Location")
+        locationEnabled = config.getBoolean("Show location")
 
         val manager = Bukkit.getPluginManager()
 
@@ -88,7 +87,8 @@ class Tablocation : JavaPlugin(), Listener {
     }
 
     fun updateLocation(player: Player) {
-        player.setPlayerListName(withTeamName(player) + getLoc(player))
+        val newName = "${withTeamName(player)}${getLoc(player)}"
+        player.setPlayerListName(newName)
     }
 
     fun withTeamName(player: Player): String {
@@ -113,43 +113,41 @@ class Tablocation : JavaPlugin(), Listener {
 
         var colourCode = CraftColours.WHITE
 
-        var world = ""
-
-        if (environmentEnabled != ShowDimension.False) {
-            val environment = player.world.environment
-
-            world = when (environment) {
+        val world = if (environmentEnabled != ShowDimension.False) {
+            val environmentName = when (val environment = player.world.environment) {
                 Environment.NORMAL -> "Overworld"
                 Environment.NETHER -> "Nether"
                 Environment.THE_END -> "End"
                 else -> environment.toString()
             }
 
-            val dimensionColourCode = config.getString("Colour for The $world") ?: ""
+            val dimensionColourCode = config.getString("Colour for The $environmentName") ?: ""
 
             if (environmentEnabled == ShowDimension.Expanded) {
-                world = "${dimensionColourCode}The $world${CraftColours.RESET}"
+                "${dimensionColourCode}The $environmentName${CraftColours.RESET}"
             } else {
                 colourCode = dimensionColourCode
                 // Hide `world` variable if displaying minimal
-                world = ""
+                ""
             }
+        } else {
+            ""
         }
 
-        var location = ""
-
-        if (locationEnabled) {
+        val location = if (locationEnabled) {
             val loc = player.location
             val x = loc.blockX
             val y = loc.blockY
             val z = loc.blockZ
-            location = "$x, $y, $z"
+            "$x, $y, $z"
+        } else {
+            ""
         }
 
-        var separator = ""
-
-        if (locationEnabled && environmentEnabled == ShowDimension.Expanded) {
-            separator = ", "
+        val separator = if (locationEnabled && environmentEnabled == ShowDimension.Expanded) {
+            ", "
+        } else {
+            ""
         }
 
         return " $colourCode[${CraftColours.WHITE}$location$separator$world$colourCode]"

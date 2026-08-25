@@ -9,6 +9,17 @@ repositories {
     maven("https://oss.sonatype.org/content/groups/public/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 }
+//
+//configurations {
+//    val provided = null
+//    provided
+//}
+//
+//sourceSets {
+//    main {
+//        compileClasspath += configurations.provided
+//    }
+//}
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:26.1.1-R0.1-SNAPSHOT")
@@ -23,6 +34,10 @@ dependencies {
 
 kotlin {
     jvmToolchain(25)
+}
+
+tasks.shadowJar {
+    relocate("org.bstats", "dev.cordor.tablocation.bstats")
 }
 
 tasks {
