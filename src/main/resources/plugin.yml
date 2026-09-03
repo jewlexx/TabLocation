@@ -10,3 +10,4 @@ permissions:
   tablocation.hide:
     description: Hides your location from your name
     default: false
+folia-supported: true
