@@ -16,9 +16,9 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.jewelexx:craftcolours:1.0.0")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.22.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.22.2")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.22")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.2")
 }
 
 kotlin {
