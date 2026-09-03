@@ -1,15 +1,22 @@
 package dev.cordor.tablocation
 
 import com.jewelexx.craftcolours.CraftColours
-import org.bukkit.plugin.java.JavaPlugin
+import io.papermc.paper.ServerBuildInfo
+import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.key.Key
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.ComponentBuilder
+import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
+import org.bukkit.World.Environment
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
-import org.bukkit.World.Environment
+import org.bukkit.plugin.java.JavaPlugin
 import java.net.URI
+
 
 enum class ShowDimension {
     Minimal,
@@ -22,6 +29,11 @@ class Tablocation : JavaPlugin(), Listener {
     var locationEnabled: Boolean = false
     val version = description.version
 
+    companion object {
+        fun isFolia(): Boolean {
+            return ServerBuildInfo.buildInfo().isBrandCompatible(Key.key("papermc", "folia"))
+        }
+    }
 
     override fun onEnable() {
         org.bstats.bukkit.Metrics(this, 9922)
@@ -44,7 +56,7 @@ class Tablocation : JavaPlugin(), Listener {
         }
         locationEnabled = config.getBoolean("Show location")
 
-        val manager = Bukkit.getPluginManager()
+        val manager = server.pluginManager
 
         manager.registerEvents(this, this)
         if (manager.getPlugin("PlaceholderAPI") != null) {
@@ -74,7 +86,7 @@ class Tablocation : JavaPlugin(), Listener {
     @EventHandler
     fun onPlayerMove(e: PlayerMoveEvent) {
         val fromBlock = e.from.block
-        val toBlock = e.to?.block ?: return
+        val toBlock = e.to.block ?: return
 
         if (fromBlock.x != toBlock.x || fromBlock.y != toBlock.y || fromBlock.z != toBlock.z) {
             updateLocation(e.player)
@@ -87,22 +99,25 @@ class Tablocation : JavaPlugin(), Listener {
     }
 
     fun updateLocation(player: Player) {
-        val newName = "${withTeamName(player)}${getLoc(player)}"
-        player.setPlayerListName(newName)
+        val newName = player.playerListName();
+        newName.append(Component.text(getLoc(player)));
+        player.playerListName(newName)
     }
 
-    fun withTeamName(player: Player): String {
-        val name = player.displayName
-        val sb = Bukkit.getScoreboardManager()?.mainScoreboard ?: return name
-
-        for (team in sb.teams) {
-            if (team.hasEntry(player.name)) {
-                return "${team.color}${team.prefix}$name${team.suffix}${CraftColours.RESET}"
-            }
-        }
-
-        return name
-    }
+//    fun withTeamName(player: Player): String {
+//        val name = player.displayName()
+//        val sb = server.scoreboardManager.mainScoreboard
+//
+//        for (team in sb.teams) {
+//            if (team.hasEntry(player.name)) {
+//                val nameComponent = Component.empty()
+//                nameComponent.append(team.name)
+//                return "${team.color}${team.prefix}$name${team.suffix}${CraftColours.RESET}"
+//            }
+//        }
+//
+//        return name
+//    }
 
     fun getLoc(player: Player): String {
         if ((!locationEnabled && environmentEnabled == ShowDimension.False)
