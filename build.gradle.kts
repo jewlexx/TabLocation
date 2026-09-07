@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:26.1.1-R0.1-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.7")
+    compileOnly("me.clip:placeholderapi:2.12.3")
     implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.jewelexx:craftcolours:1.0.0")
